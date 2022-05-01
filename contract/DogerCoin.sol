@@ -642,8 +642,8 @@ contract DogerCoin is Context, IERC20, Ownable {
 
         uint subtotal = newLiquidityTax.add(newMarketingTax).add(newDevTax);
 
-        require(subtotal >= MIN_TAX_LIMIT, "Minimum Limit for Tax is 10%.");
-        require(subtotal <= MAX_TAX_LIMIT, "Maximum limit for Tax is 25%.");
+        require(subtotal >= MIN_TAX_LIMIT, "Minimum Limit for Tax is 1%.");
+        require(subtotal <= MAX_TAX_LIMIT, "Maximum limit for Tax is 20%.");
 
         _buyLiquidityFee = newLiquidityTax;
         _buyMarketingFee = newMarketingTax;
@@ -661,8 +661,8 @@ contract DogerCoin is Context, IERC20, Ownable {
 
         uint subtotal = newLiquidityTax.add(newMarketingTax).add(newDevTax);
 
-        require(subtotal >= MIN_TAX_LIMIT, "Minimum Limit for Tax is 10%.");
-        require(subtotal <= MAX_TAX_LIMIT, "Maximum limit for Tax is 25%.");
+        require(subtotal >= MIN_TAX_LIMIT, "Minimum Limit for Tax is 1%.");
+        require(subtotal <= MAX_TAX_LIMIT, "Maximum limit for Tax is 20%.");
 
         _sellLiquidityFee = newLiquidityTax;
         _sellMarketingFee = newMarketingTax;
