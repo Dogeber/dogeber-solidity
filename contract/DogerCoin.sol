@@ -10,8 +10,13 @@
 ----------------------------------------------------------------------------------------------*/
 
 /**
-Telegram: TBA
-Website:  TBA
+*
+* Submitted for verification at Etherscan.io on 2022-05-05
+*
+* Website:  http://www.doger.live/
+* Twitter: https://twitter.com/0xDoger
+* Telegram: https://t.me/DogerCoinOfficial
+* Github: https://t.me/DogerCoinOfficial
 */
 
 pragma solidity ^0.8.4;
