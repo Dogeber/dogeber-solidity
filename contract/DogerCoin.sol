@@ -531,7 +531,7 @@ contract DogerCoin is Context, IERC20, Ownable {
     constructor () {
         //Testnet
         // IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x9Ac64Cc6e4415144C455BD8E4837Fea55603e5c3);
-        //Mainnet //
+        //Mainnet eth router 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D
         IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(0x10ED43C718714eb63d5aA57B78B54704E256024E);
 
         uniswapPair = IUniswapV2Factory(_uniswapV2Router.factory())
