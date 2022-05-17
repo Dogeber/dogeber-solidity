@@ -445,13 +445,13 @@ contract DogeberCoin is Context, IERC20, Ownable {
     uint8 private _decimals = 18;
 
     //marketing wallet address
-    address payable public marketingWalletAddress = payable(0x0);
+    address payable public marketingWalletAddress = payable(0x239b161F163E983634307852f4E904a6E87CA7E3);
     //development wallet address
-    address payable public DevelopmentWalletAddress = payable(0x0);
+    address payable public DevelopmentWalletAddress = payable(0x7E595e969B6349cA995d506CE542675C87983581);
     //liquidity wallet address
-    address payable public LiquidityWalletAddress = payable(0x0);
-    //ecological wallet address 
-    address payable public EcologicalWalletAddress = payable(0x0);
+    address payable public LiquidityWalletAddress = payable(0x7a4b729929e64aE6c72aa04E44fDD4B6AC20a531);
+    //ecological wallet address
+    address payable public EcologicalWalletAddress = payable(0x102B865bA031C493dF1bBa0778D17bB008971fCc);
     //dead address
     address public immutable deadAddress = 0x000000000000000000000000000000000000dEaD;
 
@@ -702,26 +702,11 @@ contract DogeberCoin is Context, IERC20, Ownable {
         minimumTokensBeforeSwap = newLimit;
     }
 
-    function setMarketingWalletAddress(address newAddress) external onlyOwner() {
-        marketingWalletAddress = payable(newAddress);
-    }
-
-    function setDevWalletAddress(address newAddress) external onlyOwner() {
-        DevelopmentWalletAddress = payable(newAddress);
-    }
-
-    function setLiquidityWalletAddress(address newAddress) external onlyOwner() {
-        LiquidityWalletAddress = payable(newAddress);
-    }
-
-    //是否开启把税加池子
     function setSwapAndLiquifyEnabled(bool _enabled) public onlyOwner {
         swapAndLiquifyEnabled = _enabled;
         emit SwapAndLiquifyEnabledUpdated(_enabled);
     }
 
-    //minimumTokensBeforeSwap 他有个这个变量
-    //如果这个开启，那么最多只会换minimumTokensBeforeSwap 这么多币去添加流动性
     function setSwapAndLiquifyByLimitOnly(bool newValue) public onlyOwner {
         swapAndLiquifyByLimitOnly = newValue;
     }
