@@ -1,11 +1,11 @@
 /*--------------------------------------------------------------------------------------------
 
-██████╗  ██████╗  ██████╗ ███████╗██████╗      ██████╗ ██████╗ ██╗███╗   ██╗
-██╔══██╗██╔═══██╗██╔════╝ ██╔════╝██╔══██╗    ██╔════╝██╔═══██╗██║████╗  ██║
-██║  ██║██║   ██║██║  ███╗█████╗  ██████╔╝    ██║     ██║   ██║██║██╔██╗ ██║
-██║  ██║██║   ██║██║   ██║██╔══╝  ██╔══██╗    ██║     ██║   ██║██║██║╚██╗██║
-██████╔╝╚██████╔╝╚██████╔╝███████╗██║  ██║    ╚██████╗╚██████╔╝██║██║ ╚████║
-╚═════╝  ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝     ╚═════╝ ╚═════╝ ╚═╝╚═╝  ╚═══╝
+██████╗  ██████╗  ██████╗ ███████╗██████╗ ███████╗██████╗      ██████╗ ██████╗ ██╗███╗   ██╗
+██╔══██╗██╔═══██╗██╔════╝ ██╔════╝██╔══██╗██╔════╝██╔══██╗    ██╔════╝██╔═══██╗██║████╗  ██║
+██║  ██║██║   ██║██║  ███╗█████╗  ██████╔╝█████╗  ██████╔╝    ██║     ██║   ██║██║██╔██╗ ██║
+██║  ██║██║   ██║██║   ██║██╔══╝  ██╔══██╗██╔══╝  ██╔══██╗    ██║     ██║   ██║██║██║╚██╗██║
+██████╔╝╚██████╔╝╚██████╔╝███████╗██████╔╝███████╗██║  ██║    ╚██████╗╚██████╔╝██║██║ ╚████║
+╚═════╝  ╚═════╝  ╚═════╝ ╚══════╝╚═════╝ ╚══════╝╚═╝  ╚═╝     ╚═════╝ ╚═════╝ ╚═╝╚═╝  ╚═══╝
 
 ----------------------------------------------------------------------------------------------*/
 
@@ -13,10 +13,10 @@
 *
 * Submitted for verification at Etherscan.io on 2022-05-05
 *
-* Website:  http://www.doger.live/
-* Twitter: https://twitter.com/0xDoger
-* Telegram: https://t.me/DogerCoinOfficial
-* Github: https://t.me/DogerCoinOfficial
+* Website:  http://www.dogeber.com/
+* Twitter: https://twitter.com/0xDogeber
+* Telegram: https://t.me/DogeberCoinOfficial
+* Github: https://github.com/Dogeber
 */
 
 pragma solidity ^0.8.4;
@@ -448,9 +448,9 @@ contract DogerCoin is Context, IERC20, Ownable {
     address payable public marketingWalletAddress = payable(0x0);
     //development wallet address
     address payable public DevelopmentWalletAddress = payable(0x0);
-    //liquidity wallet address
+    //liquidity wallet address 流动性放在这个钱包里
     address payable public LiquidityWalletAddress = payable(0x0);
-    //ecological wallet address
+    //ecological wallet address 使用这个地址注入流动性
     address payable public EcologicalWalletAddress = payable(0x0);
     //dead address
     address public immutable deadAddress = 0x000000000000000000000000000000000000dEaD;
@@ -714,11 +714,14 @@ contract DogerCoin is Context, IERC20, Ownable {
         LiquidityWalletAddress = payable(newAddress);
     }
 
+    //是否开启把税加池子
     function setSwapAndLiquifyEnabled(bool _enabled) public onlyOwner {
         swapAndLiquifyEnabled = _enabled;
         emit SwapAndLiquifyEnabledUpdated(_enabled);
     }
 
+    //minimumTokensBeforeSwap 他有个这个变量
+    //如果这个开启，那么最多只会换minimumTokensBeforeSwap 这么多币去添加流动性
     function setSwapAndLiquifyByLimitOnly(bool newValue) public onlyOwner {
         swapAndLiquifyByLimitOnly = newValue;
     }
