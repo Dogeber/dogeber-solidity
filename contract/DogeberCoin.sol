@@ -435,22 +435,22 @@ interface IUniswapV2Router02 is IUniswapV2Router01 {
     ) external;
 }
 
-contract DogerCoin is Context, IERC20, Ownable {
+contract DogeberCoin is Context, IERC20, Ownable {
 
     using SafeMath for uint256;
     using Address for address;
 
-    string private _name = "Doger Coin";
-    string private _symbol = "Doger";
+    string private _name = "Dogeber Coin";
+    string private _symbol = "Dogeber";
     uint8 private _decimals = 18;
 
     //marketing wallet address
     address payable public marketingWalletAddress = payable(0x0);
     //development wallet address
     address payable public DevelopmentWalletAddress = payable(0x0);
-    //liquidity wallet address 流动性放在这个钱包里
+    //liquidity wallet address
     address payable public LiquidityWalletAddress = payable(0x0);
-    //ecological wallet address 使用这个地址注入流动性
+    //ecological wallet address 
     address payable public EcologicalWalletAddress = payable(0x0);
     //dead address
     address public immutable deadAddress = 0x000000000000000000000000000000000000dEaD;
