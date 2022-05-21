@@ -618,18 +618,6 @@ contract DogeberCoin is Context, IERC20, Ownable {
         emit Approval(owner, spender, amount);
     }
 
-    function setMarketPairStatus(address account, bool newValue) public onlyOwner {
-        isMarketPair[account] = newValue;
-    }
-
-    function setIsBuyLimitExempt(address holder, bool exempt) external onlyOwner {
-        isBuyLimitExempt[holder] = exempt;
-    }
-
-    function setIsSellLimitExempt(address holder, bool exempt) external onlyOwner {
-        isSellLimitExempt[holder] = exempt;
-    }
-
     function _isExcludedFromFee(address account, bool newValue) public onlyOwner {
         isExcludedFromFee[account] = newValue;
     }
@@ -672,50 +660,12 @@ contract DogeberCoin is Context, IERC20, Ownable {
         _totalDistributionShares = _liquidityShare.add(_marketingShare).add(_DevShare);
     }
 
-
-    function setMaxBuyAmount(uint256 maxBuyAmount) external onlyOwner() {
-        _maxBuyAmount = maxBuyAmount;
-    }
-
-    function enableDisableWalletLimit(bool newValue) external onlyOwner {
-        checkWalletLimit = newValue;
-    }
-
-    function setIsWalletLimitExempt(address holder, bool exempt) external onlyOwner {
-        isWalletLimitExempt[holder] = exempt;
-    }
-
-    function setNumTokensBeforeSwap(uint256 newLimit) external onlyOwner() {
-        minimumTokensBeforeSwap = newLimit;
-    }
-
     function getCirculatingSupply() public view returns (uint256) {
         return _totalSupply.sub(balanceOf(deadAddress));
     }
 
     function transferToAddressETH(address payable recipient, uint256 amount) private {
         recipient.transfer(amount);
-    }
-
-    function changeRouterVersion(address newRouterAddress) public onlyOwner returns (address newPairAddress) {
-
-        IUniswapV2Router02 _uniswapV2Router = IUniswapV2Router02(newRouterAddress);
-
-        newPairAddress = IUniswapV2Factory(_uniswapV2Router.factory()).getPair(address(this), _uniswapV2Router.WETH());
-
-        if (newPairAddress == address(0)) //Create If Doesnt exist
-        {
-            newPairAddress = IUniswapV2Factory(_uniswapV2Router.factory())
-            .createPair(address(this), _uniswapV2Router.WETH());
-        }
-
-        uniswapPair = newPairAddress;
-        //Set new pair address
-        uniswapV2Router = _uniswapV2Router;
-        //Set new router address
-
-        isWalletLimitExempt[address(uniswapPair)] = true;
-        isMarketPair[address(uniswapPair)] = true;
     }
 
     //to recieve ETH from uniswapV2Router when swaping
@@ -757,7 +707,7 @@ contract DogeberCoin is Context, IERC20, Ownable {
 
             uint256 finalAmount = (isExcludedFromFee[sender] || isExcludedFromFee[recipient]) ?
             amount : takeFee(sender, recipient, amount);
-            
+
             _balances[recipient] = _balances[recipient].add(finalAmount);
 
             emit Transfer(sender, recipient, finalAmount);
