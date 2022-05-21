@@ -496,8 +496,6 @@ contract DogeberCoin is Context, IERC20, Ownable {
     uint256 public _maxBuyAmount = 50000000 * 10 ** _decimals;     // 50 million = 1 %
     //25,000,000  (Anti-Whale)
     uint256 public _maxSellAmount = 25000000 * 10 ** _decimals;   // 25 million = 0.5 %
-    // 2%
-    uint256 public _walletMax = _totalSupply.mul(2).div(100);   //2 %
 
     uint256 private minimumTokensBeforeSwap = 50000 * 10 ** _decimals;  //50,000
 
@@ -631,7 +629,7 @@ contract DogeberCoin is Context, IERC20, Ownable {
     function setIsSellLimitExempt(address holder, bool exempt) external onlyOwner {
         isSellLimitExempt[holder] = exempt;
     }
-    
+
     function _isExcludedFromFee(address account, bool newValue) public onlyOwner {
         isExcludedFromFee[account] = newValue;
     }
@@ -685,10 +683,6 @@ contract DogeberCoin is Context, IERC20, Ownable {
 
     function setIsWalletLimitExempt(address holder, bool exempt) external onlyOwner {
         isWalletLimitExempt[holder] = exempt;
-    }
-
-    function setWalletLimit(uint256 newLimit) external onlyOwner {
-        _walletMax = newLimit;
     }
 
     function setNumTokensBeforeSwap(uint256 newLimit) external onlyOwner() {
@@ -763,10 +757,7 @@ contract DogeberCoin is Context, IERC20, Ownable {
 
             uint256 finalAmount = (isExcludedFromFee[sender] || isExcludedFromFee[recipient]) ?
             amount : takeFee(sender, recipient, amount);
-
-            if (checkWalletLimit && !isWalletLimitExempt[recipient])
-                require(balanceOf(recipient).add(finalAmount) <= _walletMax, "Max Wallet Limit Exceeded!!");
-
+            
             _balances[recipient] = _balances[recipient].add(finalAmount);
 
             emit Transfer(sender, recipient, finalAmount);
