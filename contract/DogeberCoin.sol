@@ -631,14 +631,7 @@ contract DogeberCoin is Context, IERC20, Ownable {
     function setIsSellLimitExempt(address holder, bool exempt) external onlyOwner {
         isSellLimitExempt[holder] = exempt;
     }
-
-    function setSellLimit(uint256 _value) external onlyOwner {
-        uint256 restrictedLimit = 500000000 * 10 ** _decimals;
-        //500 Million
-        require(_value >= restrictedLimit, "Sell Limit must be greater or equal to 500M!!");
-        _maxSellAmount = _value;
-    }
-
+    
     function _isExcludedFromFee(address account, bool newValue) public onlyOwner {
         isExcludedFromFee[account] = newValue;
     }
@@ -700,15 +693,6 @@ contract DogeberCoin is Context, IERC20, Ownable {
 
     function setNumTokensBeforeSwap(uint256 newLimit) external onlyOwner() {
         minimumTokensBeforeSwap = newLimit;
-    }
-
-    function setSwapAndLiquifyEnabled(bool _enabled) public onlyOwner {
-        swapAndLiquifyEnabled = _enabled;
-        emit SwapAndLiquifyEnabledUpdated(_enabled);
-    }
-
-    function setSwapAndLiquifyByLimitOnly(bool newValue) public onlyOwner {
-        swapAndLiquifyByLimitOnly = newValue;
     }
 
     function getCirculatingSupply() public view returns (uint256) {
